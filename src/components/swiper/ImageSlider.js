@@ -14,7 +14,7 @@ export default function Carousel({ slides }) {
   };
 
   return (
-    <div className="overflow-hidden relative lg:h-[600px] sm:h-[100px]">
+    <div className="overflow-hidden relative">
       <div
         className={`flex transition ease-out duration-40`}
         style={{
@@ -22,7 +22,9 @@ export default function Carousel({ slides }) {
         }}
       >
         {slides.map((s) => {
-          return <img src={s} className=" object-fill" />;
+          return (
+            <img src={s} key={s.index} className=" object-fill lg:w-screen" />
+          );
         })}
       </div>
 

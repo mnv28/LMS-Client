@@ -20,6 +20,10 @@ import { createContext, useReducer } from "react";
 import { initialState, reducer } from "../src/reducer/useReducer";
 import Success from "./components/payment/Success";
 import Failure from "./components/payment/Failure";
+import Protected from "./components/Protected";
+import PrivacyPolicy from "./components/Legal/PrivacyPolicy";
+import TermsOfServices from "./components/Legal/TermsOfServices";
+import Footer from "./components/footer/Footer";
 
 export const UserContext = createContext();
 const App = () => {
@@ -31,16 +35,65 @@ const App = () => {
         <Router>
           <NavBar />
           <Routes>
-            <Route exact path="/" element={<SignIn />} />
+            <Route
+              exact
+              path="/"
+              element={
+                <Protected>
+                  <Home />
+                </Protected>
+              }
+            />
             <Route exact path="/signup" element={<SignUp />} />
-            <Route exact path="/faq" element={<FAQS />} />
-            <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/course/:id" element={<DetailPage />} />
-            <Route exact path="/home" element={<Home />} />
+            <Route
+              exact
+              path="/faq"
+              element={
+                <Protected>
+                  <FAQS />
+                </Protected>
+              }
+            />
+            <Route
+              exact
+              path="/contact"
+              element={
+                <Protected>
+                  <Contact />
+                </Protected>
+              }
+            />
+            <Route
+              exact
+              path="/course/:id"
+              element={
+                <Protected>
+                  <DetailPage />
+                </Protected>
+              }
+            />
+            <Route
+              exact
+              path="/home"
+              element={
+                <Protected>
+                  <Home />
+                </Protected>
+              }
+            />
+
             {/* <Route exact path="/payment" element={<Payments/>}/> */}
+            <Route exact path="/login" element={<SignIn />} />
+            <Route
+              exact
+              path="/term-of-services"
+              element={<TermsOfServices />}
+            />
+            <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route exact path="/success" element={<Success />} />
             <Route exact path="/failure" element={<Failure />} />
           </Routes>
+          <Footer />
         </Router>
       </UserContext.Provider>
     </>

@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { Link } from "react-router-dom";
 import logo from "../../assets/name_logo.png";
 export default function SignIn() {
   const [error, setError] = useState("");
@@ -92,7 +93,7 @@ export default function SignIn() {
                     setError("");
                     setLoading(false);
                     navigate("/home");
-                    showToastMessage();
+                    // showToastMessage()
                     dispatch({ type: "USER", payload: true });
                   } else {
                     const error = await response.text();
@@ -164,13 +165,23 @@ export default function SignIn() {
                   </div>
                 </div>
 
-                <div>
+                <div className="flex flex-col items-center justify-center">
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Sign in
                   </button>
+
+                  <p className=" text-white mt-4 text-sm font-sans font-light">
+                    New User ?
+                    <Link
+                      to="/signup"
+                      className="text-white font-semibold text-[13px] underline cursor-pointer"
+                    >
+                      {" " + "Register"}
+                    </Link>
+                  </p>
                 </div>
                 <ToastContainer />
               </form>
@@ -179,11 +190,8 @@ export default function SignIn() {
               <p className=" text-white text-sm font-sans font-light">
                 By continuing, you agree to our
               </p>
-              <p
-                className=" text-white font-semibold text-[13px] underline cursor-pointer"
-                onClick={handleOpenPDF}
-              >
-                Terms Of Service
+              <p className=" text-white font-semibold text-[13px] underline cursor-pointer">
+                <Link to="/term-of-services">Terms Of Service</Link>
               </p>
             </div>
           </>

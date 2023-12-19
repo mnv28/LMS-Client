@@ -214,18 +214,9 @@ export default function Home() {
     }
   };
 
-  let slides = [
-    "./teacher.jpg",
-    "./girl-smile.jpg",
-    "https://wallpaperaccess.com/full/809523.jpg",
-    "https://getwallpapers.com/wallpaper/full/5/c/0/606489.jpg",
-  ];
+  let slides = ["./reteach-slider-1.png", "./reteach-slider-2.png"];
   return (
     <div className="w-full flex flex-col pt-0">
-      <div>
-        <Carousel slides={slides} />
-      </div>
-
       <div className=" flex justify-center items-center">
         <p className=" items-center  py-4 px-20 font-semibold my-3 rounded-xl text-white bg-gray-950">
           Select class from below
@@ -611,29 +602,26 @@ export default function Home() {
             </div>
           </div>
         </section>
+        <div className="">
+          <Carousel slides={slides} />
+        </div>
       </div>
 
-      <div className=" w-full h-auto bottom-0 bg-white ">
+      {/* <div className=" w-full h-auto bottom-0 bg-white ">
         <div className="sm:flex sm:items-center sm:justify-between py-3">
           <span className="text-sm text-black sm:text-center mx-3">
             © 2023 RETEACH. All Rights Reserved.
           </span>
           <div className="flex mt-4 sm:justify-center sm:mt-0 space-x-3 mx-4">
-            <p
-              className="text-black cursor-pointer underline"
-              onClick={handleOpenPrivacy}
-            >
-              Privacy Policy
+            <p className="text-black cursor-pointer underline">
+              <Link to="/privacy-policy">Privacy Policy</Link>
             </p>
-            <p
-              className="text-black  cursor-pointer underline"
-              onClick={handleOpenTerms}
-            >
-              Terms of Service
+            <p className="text-black  cursor-pointer underline">
+              <Link to="/term-of-services">Terms of Service</Link>
             </p>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 }

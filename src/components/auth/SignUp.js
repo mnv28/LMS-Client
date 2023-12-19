@@ -1,14 +1,17 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { UserContext } from "../../App";
 import { useNavigate } from "react-router-dom";
 import { ClipLoader } from "react-spinners";
 import { ToastContainer, toast } from "react-toastify";
+import { Link } from "react-router-dom";
 import logo from "../../assets/name_logo.png";
 import "react-toastify/dist/ReactToastify.css";
 
 export default function SignUp() {
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const { state, dispatch } = useContext(UserContext);
   let navigate = useNavigate();
   const {
     register,
@@ -76,8 +79,9 @@ export default function SignUp() {
                     const data = await response.json();
                     setError("");
                     setLoading(false);
-                    navigate("/");
+                    navigate("/home");
                     showToastMessage();
+                    dispatch({ type: "USER", payload: true });
                   } else {
                     const err = await response.text();
                     setError(err);
@@ -205,13 +209,22 @@ export default function SignUp() {
                 {error && (
                   <p className="text-red-500">{error || error.message}</p>
                 )}
-                <div>
+                <div className="flex flex-col items-center justify-center">
                   <button
                     type="submit"
                     className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                   >
                     Sign up
                   </button>
+                  <p className=" text-white mt-4 text-sm font-sans font-light">
+                    Already Registered ?
+                    <Link
+                      to="/login"
+                      className="text-white font-semibold text-[13px] underline cursor-pointer"
+                    >
+                      {" " + "Signin"}
+                    </Link>
+                  </p>
                 </div>
                 <ToastContainer />
               </form>
