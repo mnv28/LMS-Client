@@ -47,7 +47,7 @@ export default function SignUp() {
           <>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
-                className="mx-auto h-10 w-auto"
+                className="mx-auto h-15 w-auto"
                 src={logo}
                 alt="reteach.co.in"
               />
@@ -124,40 +124,6 @@ export default function SignUp() {
                       htmlFor="password"
                       className="block text-sm font-medium leading-6 text-white"
                     >
-                      Password
-                    </label>
-                  </div>
-                  <div className="mt-2">
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      {...register("password", {
-                        required: "password is required",
-                        pattern: {
-                          value:
-                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
-                          message: ` at least 8 characters\n
-                      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
-                      - Can contain special characters`,
-                        },
-                      })}
-                      className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-900  bg-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                    />
-                    {errors.password && (
-                      <p className=" text-start text-red-500">
-                        {errors.password.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <div>
-                  <div className="flex items-center justify-between">
-                    <label
-                      htmlFor="password"
-                      className="block text-sm font-medium leading-6 text-white"
-                    >
                       Username
                     </label>
                   </div>
@@ -195,12 +161,50 @@ export default function SignUp() {
                       type="text"
                       {...register("mobile", {
                         required: "mobile number is required",
+                        pattern: {
+                          value:
+                            /^0{0,1}[1-9]{1}[0-9]{2}[\s]{0,1}[\-]{0,1}[\s]{0,1}[1-9]{1}[0-9]{6}$/g,
+                          message: "Mobile number is not valid",
+                        },
                       })}
                       className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-900  bg-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                     {errors.mobile && (
                       <p className="text-red-500 text-start">
                         {errors.mobile.message}
+                      </p>
+                    )}
+                  </div>
+                </div>
+                <div>
+                  <div className="flex items-center justify-between">
+                    <label
+                      htmlFor="password"
+                      className="block text-sm font-medium leading-6 text-white"
+                    >
+                      Password
+                    </label>
+                  </div>
+                  <div className="mt-2">
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      {...register("password", {
+                        required: "password is required",
+                        pattern: {
+                          value:
+                            /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/gm,
+                          message: ` at least 8 characters\n
+                      - must contain at least 1 uppercase letter, 1 lowercase letter, and 1 number\n
+                      - Can contain special characters`,
+                        },
+                      })}
+                      className="block w-full rounded-md border-0 py-1.5 text-white shadow-sm ring-1 ring-inset ring-gray-900  bg-gray-800 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    />
+                    {errors.password && (
+                      <p className=" text-start text-red-500">
+                        {errors.password.message}
                       </p>
                     )}
                   </div>
@@ -217,12 +221,12 @@ export default function SignUp() {
                     Sign up
                   </button>
                   <p className=" text-white mt-4 text-sm font-sans font-light">
-                    Already Registered ?
+                    {"Already Registered ?" + " "}
                     <Link
                       to="/login"
                       className="text-white font-semibold text-[13px] underline cursor-pointer"
                     >
-                      {" " + "Signin"}
+                      Login
                     </Link>
                   </p>
                 </div>

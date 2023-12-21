@@ -61,7 +61,7 @@ export default function SignIn() {
           <>
             <div className="sm:mx-auto sm:w-full sm:max-w-sm">
               <img
-                className="mx-auto h-10 w-auto"
+                className="mx-auto h-15 w-auto"
                 src={logo}
                 alt="Your Company"
               />

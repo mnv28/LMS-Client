@@ -15,6 +15,9 @@ function Footer() {
           <p className="text-black  cursor-pointer underline">
             <Link to="/term-of-services">Terms of Service</Link>
           </p>
+          <p className="text-black  cursor-pointer underline">
+            <Link to="/refund-&-return">Refund & Returns</Link>
+          </p>
         </div>
       </div>
     </div>

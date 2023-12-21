@@ -15,7 +15,7 @@ import { FAQS } from "./components/faq/FAQS";
 import Contact from "./components/contactus/Contact";
 import { DetailPage } from "./components/detailPage/DetailPage";
 
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 
 import { initialState, reducer } from "../src/reducer/useReducer";
 import Success from "./components/payment/Success";
@@ -24,11 +24,29 @@ import Protected from "./components/Protected";
 import PrivacyPolicy from "./components/Legal/PrivacyPolicy";
 import TermsOfServices from "./components/Legal/TermsOfServices";
 import Footer from "./components/footer/Footer";
+import axios from "axios";
+import RefundReturns from "./components/Legal/RefundReturns";
 
 export const UserContext = createContext();
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [CourseData, setCourseData] = useState(null);
 
+  useEffect(() => {
+    try {
+      axios
+        .get("http://localhost:5000/api/course/courses")
+        .then(async (res) => {
+          setCourseData(res.data.courses);
+          console.log(res.data.courses);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+  }, []);
   return (
     <>
       <UserContext.Provider value={{ state, dispatch }}>
@@ -40,7 +58,8 @@ const App = () => {
               path="/"
               element={
                 <Protected>
-                  <Home />
+                  {/* {CourseData ? <Home CourseData={CourseData} /> : null} */}
+                  <Home CourseData={CourseData} />
                 </Protected>
               }
             />
@@ -77,7 +96,8 @@ const App = () => {
               path="/home"
               element={
                 <Protected>
-                  <Home />
+                  {/* {CourseData ? <Home CourseData={CourseData} /> : null} */}
+                  <Home CourseData={CourseData} />
                 </Protected>
               }
             />
@@ -90,6 +110,7 @@ const App = () => {
               element={<TermsOfServices />}
             />
             <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route exact path="/refund-&-return" element={<RefundReturns />} />
             <Route exact path="/success" element={<Success />} />
             <Route exact path="/failure" element={<Failure />} />
           </Routes>
