@@ -63,14 +63,14 @@ export default function SignUp() {
                 onSubmit={handleSubmit(async (data) => {
                   setLoading(true);
                   const response = await fetch(
-                    "https://lms-backend-ln7x.onrender.com/api/user/signup",
+                    "http://localhost:5000/api/user/signup",
                     {
                       method: "POST",
                       body: JSON.stringify({
                         email: data.email,
                         password: data.password,
                         name: data.name,
-                        mobile: data.mobile,
+                        mobile: "+91" + data.mobile,
                       }),
                       headers: { "content-type": "application/json" },
                     }
@@ -79,9 +79,9 @@ export default function SignUp() {
                     const data = await response.json();
                     setError("");
                     setLoading(false);
-                    navigate("/home");
+                    navigate("/login");
                     showToastMessage();
-                    dispatch({ type: "USER", payload: true });
+                    // dispatch({ type: "USER", payload: true });
                   } else {
                     const err = await response.text();
                     setError(err);

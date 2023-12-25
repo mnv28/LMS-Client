@@ -67,10 +67,7 @@ export default function Contact() {
               };
 
               axios
-                .post(
-                  "https://lms-backend-ln7x.onrender.com/api/enquiry/enquiry-user",
-                  jsonObj
-                )
+                .post("http://localhost:5000/api/enquiry/enquiry-user", jsonObj)
                 .then(async (res) => {
                   await showToastMessage();
                   setError("");

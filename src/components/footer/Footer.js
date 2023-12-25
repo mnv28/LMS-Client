@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 function Footer() {
   return (
-    <div className=" w-full h-auto bottom-0 bg-white ">
+    <div className=" w-full h-auto mt-5 fixed bottom-0 bg-white ">
       <div className="sm:flex sm:items-center sm:justify-between py-3">
         <span className="text-sm text-black sm:text-center mx-3">
           © 2023 RETEACH. All Rights Reserved.

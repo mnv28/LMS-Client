@@ -6,11 +6,12 @@ import { Disclosure } from "@headlessui/react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
 import { ClipLoader } from "react-spinners";
+import Class from "../classes/Class";
 
-export default function Home({ CourseData }) {
+export default function Home({ CourseData, standardData }) {
   const [selectedItem, setSelectedItem] = useState(null);
   const [Selected, setSelected] = useState(false);
-  const [CourseDataMain, setCourseDataMain] = useState(null);
+  const [mainstandardData, setMainStandardData] = useState(null);
   const [courses, setCourses] = useState([]);
   const [buyCourse, setBuyCourse] = useState("");
   const key_secret = "rzp_test_JVqQWR4Ae2STfT";
@@ -25,13 +26,13 @@ export default function Home({ CourseData }) {
     product: `Course-${buyCourse}`,
     number: "9712205783",
     address: "Gujrant,India",
-    callback_url: "https://lms-backend-ln7x.onrender.com/api/payment-callback",
-    cancel: "https://lms-backend-ln7x.onrender.com/api/payment-cancel",
+    callback_url: "http://localhost:5000/api/payment-callback",
+    cancel: "http://localhost:5000/api/payment-cancel",
   };
 
   const getOrderId = () => {
     axios
-      .post("https://lms-backend-ln7x.onrender.com/api/orders", { ...data })
+      .post("http://localhost:5000/api/orders", { ...data })
       .then((res) => {
         setTimeout(() => {
           setOrderId(res.data);
@@ -61,165 +62,170 @@ export default function Home({ CourseData }) {
 
   const handleClassClick = (id) => {
     setSelected(id);
+    getOrderId();
+    setCourses(CourseData);
   };
 
-  const handleItemClick = (index) => {
-    setSelectedItem(index);
-    getOrderId();
-    if (index === 0) {
-      axios
-        .get(
-          "https://lms-backend-ln7x.onrender.com/api/course/get-course/Nursery"
-        )
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("Nursery");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 1) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/LKG")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("LKG");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 2) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/UKG")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("UKG");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 3) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/I")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("I");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 4) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/II")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("II");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 5) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/III")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("III");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 6) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/IV")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("IV");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 7) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/V")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("V");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 8) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/VI")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("VI");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 9) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/VII")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("VII");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 10) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/VIII")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("VIII");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 11) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/IX")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("IX");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 12) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/X")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("X");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 13) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/XI")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("XI");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    } else if (index === 14) {
-      axios
-        .get("https://lms-backend-ln7x.onrender.com/api/course/get-course/XII")
-        .then(async (res) => {
-          setCourses(res.data.courses);
-          setBuyCourse("XII");
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  };
+  console.log("CourseData is ==>", CourseData);
+
+  const handleItemClick = () => {};
+  // const handleItemClick = (index) => {
+  //   setSelectedItem(index);
+  //   getOrderId();
+  //   if (index === 0) {
+  //     axios
+  //       .get(
+  //         "http://localhost:5000/api/course/get-course/Nursery"
+  //       )
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("Nursery");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 1) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/LKG")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("LKG");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 2) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/UKG")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("UKG");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 3) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/I")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("I");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 4) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/II")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("II");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 5) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/III")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("III");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 6) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/IV")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("IV");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 7) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/V")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("V");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 8) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/VI")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("VI");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 9) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/VII")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("VII");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 10) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/VIII")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("VIII");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 11) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/IX")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("IX");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 12) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/X")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("X");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 13) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/XI")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("XI");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   } else if (index === 14) {
+  //     axios
+  //       .get("http://localhost:5000/api/course/get-course/XII")
+  //       .then(async (res) => {
+  //         setCourses(res.data.courses);
+  //         setBuyCourse("XII");
+  //       })
+  //       .catch((err) => {
+  //         console.log(err);
+  //       });
+  //   }
+  // };
 
   const uniqueClassNames = new Set();
 
@@ -251,7 +257,16 @@ export default function Home({ CourseData }) {
         <div className=" flex justify-center items-center">
           <Disclosure>
             <div className="flex flex-col px-8 py-6 mt-2 md:justify-between md:flex-row md:mx-10 md:py-0">
-              <ul className=" grid grid-cols-5 gap-4">
+              <ul className=" grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3  ">
+                {standardData?.map((item) => {
+                  return (
+                    <li key={item._id}>
+                      <Class standard={item.className} standardData={item} />
+                    </li>
+                  );
+                })}
+              </ul>
+              {/* <ul className=" grid grid-cols-3 gap-3">
                 {CourseData?.map((item) => {
                   if (uniqueClassNames.has(item.standard)) {
                     return null;
@@ -260,27 +275,19 @@ export default function Home({ CourseData }) {
                   console.log(uniqueClassNames);
                   return (
                     <li key={item._id}>
-                      <Link to="">
-                        <Disclosure.Button
-                          className={`cursor-pointer block w-20 rounded-md px-3 py-2 text-sm text-center font-medium border border-indigo-600 ${
-                            Selected === item._id
-                              ? " bg-gray-500 text-white"
-                              : "text-gray-300 hover:bg-gray-700 hover:text-white"
-                          }`}
-                          onClick={() => handleClassClick(item._id)}
-                        >
-                          {item.standard}
-                        </Disclosure.Button>
-                      </Link>
+                      <Class
+                        standard={item.standard}
+                        standardData={standardData}
+                      />
                     </li>
                   );
                 })}
-              </ul>
+              </ul> */}
             </div>
           </Disclosure>
         </div>
 
-        <div className=" flex justify-center items-center">
+        {/* <div className=" flex justify-center items-center">
           <Disclosure>
             <div className="flex flex-col px-2 mt-2 md:justify-between md:flex-row md:mx-10 md:py-0">
               <ul className=" grid grid-cols-5 gap-4">
@@ -495,57 +502,14 @@ export default function Home({ CourseData }) {
                   </Link>
                 </li>
               </ul>
-
-              {/* <div className=" w-full md:w-1/4">
-            <form>
-              <label
-                for="default-search"
-                class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
-              >
-                Search
-              </label>
-              <div class="relative">
-                <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                  <svg
-                    class="w-5 h-5 text-white dark:text-gray-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
-                    ></path>
-                  </svg>
-                </div>
-                <input
-                  type="search"
-                  id="default-search"
-                  class="block p-2 text-white bg-gray-800 pl-10 w-full text-sm rounded-lg border border-indigo-600 focus:ring-gray-500 focus:border-blue-500 placeholder:text-white"
-                  placeholder="Search Mockups, Logos..."
-                  required
-                />
-                <button
-                  type="submit"
-                  class="text-white absolute right-0 bottom-0 bg-indigo-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                >
-                  Search
-                </button>
-              </div>
-            </form>
-          </div> */}
             </div>
           </Disclosure>
-        </div>
+        </div> */}
 
         <div>
           <section>
             <div className="container px-2 py-10 mx-auto">
               <div className=" flex justify-end items-end">
-                {/* <button className=" text-white bg-indigo-500 rounded-md w-40 h-10">Buy now</button> */}
                 <form
                   method="POST"
                   action="https://api.razorpay.com/v1/checkout/embedded"
@@ -590,8 +554,16 @@ export default function Home({ CourseData }) {
                     name="cancel_url"
                     value={data.cancel_url}
                   />
+                  {/* <div className="col-12 center">
+                    <button
+                      className="text-white bg-indigo-500 rounded-md w-40 h-10"
+                      type="submit"
+                    >
+                      Buy Now
+                    </button>
+                  </div> */}
 
-                  <div className="center">
+                  {/* <div className="center">
                     {showButton && (
                       <div className=" bg-gray-500 rounded-md w-auto h-auto flex flex-col px-2 mb-2">
                         <p className="text-white">Class: {buyCourse}</p>
@@ -599,20 +571,44 @@ export default function Home({ CourseData }) {
                       </div>
                     )}
                   </div>
-                  <div className="col-12 center">
-                    {showButton && (
-                      <button
-                        className="text-white bg-indigo-500 rounded-md w-40 h-10"
-                        type="submit"
-                      >
-                        Buy Now
-                      </button>
-                    )}
-                  </div>
+                 */}
                 </form>
               </div>
 
-              <div className="grid grid-cols-1 bg-gray-950 gap-8 mt-8 md:mt-4 md:grid-cols-2 xl:grid-cols-3">
+              {/* <div className="grid grid-cols-1 bg-gray-950 gap-8 mt-8 md:mt-4 md:grid-cols-2 xl:grid-cols-3">
+                {courses.length
+                  ? courses.map((e) => (
+                      <div key={e._id} className=" py-4">
+                        <div className="relative">
+                          <Link to={`/course/${e._id}`}>
+                            <h1 className="mt-6 text-xl font-semibold text-white ml-2">
+                              {e.subject}
+                            </h1>
+
+                            <p className="text-sm flex text-white ml-2">
+                              <span>{e.course_discount}</span>
+                              <span>{e.course_price}</span>
+                            </p>
+
+                            <div className=" flex flex-row justify-between mx-2">
+                              <p className=" text-white inline mt-4">
+                                Standard: {e.standard}
+                              </p>
+                            </div>
+                          </Link>
+                        </div>
+                      </div>
+                    ))
+                  : selectedItem && (
+                      <div className="p-4 flex items-center justify-center w-full">
+                        <span className="inline-flex items-center rounded-md bg-yellow-50 px-2 py-1 text-xs font-medium text-yellow-800 ring-1 ring-inset ring-yellow-600/20">
+                          No Videos Available for Selected Class
+                        </span>
+                      </div>
+                    )}
+              </div> */}
+
+              {/* <div className="grid grid-cols-1 bg-gray-950 gap-8 mt-8 md:mt-4 md:grid-cols-2 xl:grid-cols-3">
                 {courses.length
                   ? courses.map((e) => (
                       <div key={e._id} className=" py-4">
@@ -624,22 +620,6 @@ export default function Home({ CourseData }) {
                               alt=""
                             />
                           </Link>
-                          {/* <div className="absolute bottom-0 flex p-3 bg-white">
-                      <img
-                        className="object-cover object-center w-10 h-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80"
-                        alt=""
-                      />
-
-                      <div className="mx-4">
-                        <h1 className="text-sm text-gray-700 dark:text-gray-200">
-                          Instructor
-                        </h1>
-                        <p className="text-sm text-gray-500 dark:text-gray-400">
-                          ABC Academy
-                        </p>
-                      </div>
-                    </div> */}
                         </div>
 
                         <h1 className="mt-6 text-xl font-semibold text-white ml-2">
@@ -664,7 +644,7 @@ export default function Home({ CourseData }) {
                         </span>
                       </div>
                     )}
-              </div>
+              </div> */}
             </div>
           </section>
           <div className="">
@@ -691,3 +671,16 @@ export default function Home({ CourseData }) {
     </>
   );
 }
+
+// <Link to="">
+// <Disclosure.Button
+//   className={`cursor-pointer block w-20 rounded-md px-3 py-2 text-sm text-center font-medium border border-indigo-600 ${
+//     Selected === item._id
+//       ? " bg-gray-500 text-white"
+//       : "text-gray-300 hover:bg-gray-700 hover:text-white"
+//   }`}
+//   onClick={() => handleClassClick(item._id)}
+// >
+//   {item.standard}
+// </Disclosure.Button>
+// </Link>

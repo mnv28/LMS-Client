@@ -26,11 +26,15 @@ import TermsOfServices from "./components/Legal/TermsOfServices";
 import Footer from "./components/footer/Footer";
 import axios from "axios";
 import RefundReturns from "./components/Legal/RefundReturns";
+import Subjects from "./components/SubjectList/Subjects";
+import TopicList from "./components/TopicList/TopicList";
+import NotFoundPage from "./components/404/NotFoundPage";
 
 export const UserContext = createContext();
 const App = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [CourseData, setCourseData] = useState(null);
+  const [standardData, setStandardData] = useState(null);
 
   useEffect(() => {
     try {
@@ -39,6 +43,20 @@ const App = () => {
         .then(async (res) => {
           setCourseData(res.data.courses);
           console.log(res.data.courses);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } catch (error) {
+      console.log(error);
+      return;
+    }
+    try {
+      axios
+        .get("http://localhost:5000/api/class/classes-list")
+        .then(async (res) => {
+          setStandardData(res.data.classes);
+          console.log(res.data.classes);
         })
         .catch((err) => {
           console.log(err);
@@ -58,8 +76,10 @@ const App = () => {
               path="/"
               element={
                 <Protected>
-                  {/* {CourseData ? <Home CourseData={CourseData} /> : null} */}
-                  <Home CourseData={CourseData} />
+                  {standardData ? (
+                    <Home CourseData={CourseData} standardData={standardData} />
+                  ) : null}
+                  {/* <Home CourseData={CourseData} /> */}
                 </Protected>
               }
             />
@@ -96,8 +116,40 @@ const App = () => {
               path="/home"
               element={
                 <Protected>
-                  {/* {CourseData ? <Home CourseData={CourseData} /> : null} */}
-                  <Home CourseData={CourseData} />
+                  {standardData ? (
+                    <Home CourseData={CourseData} standardData={standardData} />
+                  ) : null}
+                  {/* <Home CourseData={CourseData} /> */}
+                </Protected>
+              }
+            />
+
+            <Route
+              exact
+              path="/standard/:subjects"
+              element={
+                <Protected>
+                  {CourseData ? <Subjects CourseData={CourseData} /> : null}
+                </Protected>
+              }
+            />
+
+            <Route
+              exact
+              path="courseData/:standard/:subject"
+              element={
+                <Protected>
+                  {CourseData ? <TopicList CourseData={CourseData} /> : null}
+                </Protected>
+              }
+            />
+
+            <Route
+              exact
+              path="/Topic/:topic/:subject/:id"
+              element={
+                <Protected>
+                  {CourseData ? <DetailPage CourseData={CourseData} /> : null}
                 </Protected>
               }
             />
@@ -109,10 +161,27 @@ const App = () => {
               path="/term-of-services"
               element={<TermsOfServices />}
             />
-            <Route exact path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route exact path="/refund-&-return" element={<RefundReturns />} />
+            <Route
+              exact
+              path="/privacy-policy"
+              element={
+                <Protected>
+                  <PrivacyPolicy />
+                </Protected>
+              }
+            />
+            <Route
+              exact
+              path="/refund-&-return"
+              element={
+                <Protected>
+                  <RefundReturns />
+                </Protected>
+              }
+            />
             <Route exact path="/success" element={<Success />} />
             <Route exact path="/failure" element={<Failure />} />
+            <Route exact path="*" element={<NotFoundPage />} />
           </Routes>
           <Footer />
         </Router>

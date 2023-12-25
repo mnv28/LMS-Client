@@ -5,9 +5,9 @@ import { Navigate } from "react-router-dom";
 function Protected({ children }) {
   const { state, dispatch } = useContext(UserContext);
 
-  // if (!state) {
-  //   return <Navigate to="/login" />;
-  // }
+  if (!state) {
+    return <Navigate to="/login" />;
+  }
   // if (!state) {
   //   return <Navigate to="/home" />;
   // }

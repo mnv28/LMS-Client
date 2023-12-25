@@ -11,6 +11,7 @@ export default function SignIn() {
   const [error, setError] = useState("");
   const { state, dispatch } = useContext(UserContext);
   const [loading, setLoading] = useState(false);
+  const { userEmailorPhone, setUserEmailorPhone } = useState(null);
   let navigate = useNavigate();
   const {
     register,
@@ -78,11 +79,11 @@ export default function SignIn() {
                 onSubmit={handleSubmit(async (data) => {
                   setLoading(true);
                   const response = await fetch(
-                    "https://lms-backend-ln7x.onrender.com/api/user/login",
+                    "http://localhost:5000/api/user/login",
                     {
                       method: "POST",
                       body: JSON.stringify({
-                        email: data.email,
+                        emailOrPhone: data.emailOrPhone,
                         password: data.password,
                       }),
                       headers: { "content-type": "application/json" },
@@ -91,9 +92,12 @@ export default function SignIn() {
                   if (response.ok) {
                     const data = await response.json();
                     setError("");
+                    // setUserEmailorPhone(data.emailOrPhone);
+                    console.log(data);
+                    dispatch({ type: "USERDATA", payload: data });
                     setLoading(false);
                     navigate("/home");
-                    // showToastMessage()
+                    showToastMessage();
                     dispatch({ type: "USER", payload: true });
                   } else {
                     const error = await response.text();
@@ -105,28 +109,24 @@ export default function SignIn() {
               >
                 <div>
                   <label
-                    htmlFor="email"
+                    htmlFor="emailOrPhone"
                     className="block text-sm font-medium leading-6  text-white"
                   >
-                    Email address
+                    {"Email Address or Phone Number (+91)"}
                   </label>
                   <div className="mt-2">
                     <input
-                      id="email"
-                      name="email"
-                      type="email"
-                      {...register("email", {
-                        required: "email is required",
-                        pattern: {
-                          value: /\b[\w\.-]+@[\w\.-]+\.\w{2,4}\b/gi,
-                          message: "email not valid",
-                        },
+                      id="emailOrPhone"
+                      name="emailOrPhone"
+                      type="text"
+                      {...register("emailOrPhone", {
+                        required: "emailOrPhone is required",
                       })}
                       className="block w-full rounded-md border-0 py-1.5 bg-gray-800 text-white shadow-sm ring-1 ring-inset ring-gray-900 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
-                    {errors.email && (
+                    {errors.emailOrPhone && (
                       <p className="text-start text-red-500">
-                        {errors.email.message}
+                        {errors.emailOrPhone.message}
                       </p>
                     )}
                   </div>
